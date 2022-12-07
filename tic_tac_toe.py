@@ -1,11 +1,20 @@
 class TicTacToeBoard:
     def __init__(self):
         self.field = []
+        self.coord = []
         for row in range(3):
             r = []
             for col in range(3):
                 r.append('-')
             self.field.append(r)
+        self.coord = ((self.field[0][0], self.field[0][1], self.field[0][2]),
+                      (self.field[1][0], self.field[1][1], self.field[1][2]),
+                      (self.field[2][0], self.field[2][1], self.field[2][2]),
+                      (self.field[0][0], self.field[1][0], self.field[2][0]),
+                      (self.field[0][1], self.field[1][1], self.field[2][1]),
+                      (self.field[0][2], self.field[1][2], self.field[2][2]),
+                      (self.field[0][0], self.field[1][1], self.field[2][2]),
+                      (self.field[0][2], self.field[1][1], self.field[2][0]))
         self.move_x = True
         self.end_of_game = False
         self.winner = None
@@ -60,18 +69,17 @@ class TicTacToeBoard:
                     self.move_x = True
                     self.first_move = False
 
-                for j in range(len(self.field)):
-                    for i in range(len(self.field)):
-                        if self.field[i].count(self.field[i][j]) == 3 and self.field[i][j] != '-':
-                            self.end_of_game = True
-                            self.win = self.field[i][j]
-                            return f'Победил игрок {self.field[i][j]}'
-                        elif self.field[0].count('-') == 3 and self.field[1].count('-') == 3 and self.field[2].count('-') == 3:
-                            self.end_of_game = True
-                            self.win = 'ничья'
-                            return 'ничья'
-                        else:
-                            return 'Продолжаем играть'
+                for (x, y, z) in self.coord:
+                    if (x == y == z) and (x == 'X' or x == 'O'):
+                        self.end_of_game = True
+                        self.win = x
+                        return f'Победил игрок {x}'
+                    elif self.field[0].count('-') == 3 and self.field[1].count('-') == 3 and self.field[2].count('-') == 3:
+                        self.end_of_game = True
+                        self.win = 'ничья'
+                        return 'ничья'
+                    else:
+                        return 'Продолжаем играть'
 
 
 board = TicTacToeBoard()
@@ -86,5 +94,5 @@ print(board.make_move(2, 1))
 print(board.make_move(2, 2))
 print(board.make_move(3, 1))
 print(board.make_move(2, 2))
+print(board.make_move(3, 2))
 print(*board.get_field(), sep="\n")
-

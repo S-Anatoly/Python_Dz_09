@@ -60,7 +60,7 @@ class TicTacToeBoard:
                     self.field[row - 1][col - 1] = '0'
                     self.move_x = True
                     self.first_move = False
-            self.coord = ((self.field[0][0], self.field[0][1], self.field[0][2]),
+            coord = ((self.field[0][0], self.field[0][1], self.field[0][2]),
                           (self.field[1][0], self.field[1][1], self.field[1][2]),
                           (self.field[2][0], self.field[2][1], self.field[2][2]),
                           (self.field[0][0], self.field[1][0], self.field[2][0]),
@@ -68,7 +68,7 @@ class TicTacToeBoard:
                           (self.field[0][2], self.field[1][2], self.field[2][2]),
                           (self.field[0][0], self.field[1][1], self.field[2][2]),
                           (self.field[0][2], self.field[1][1], self.field[2][0]))
-            for (x, y, z) in self.coord:
+            for (x, y, z) in coord:
                 if x == y == z and x != '-':
                     self.end_of_game = True
                     self.win = x
@@ -77,8 +77,7 @@ class TicTacToeBoard:
                     self.end_of_game = True
                     self.win = 'Победила дружба!'
                     return 'Победила дружба!'
-                else:
-                    print(f'Играем дальше{x,y,z}')
+            return 'Играем'
 
 
 board = TicTacToeBoard()
